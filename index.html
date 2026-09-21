@@ -27,9 +27,9 @@
       class="bg-courage-navy text-white p-6 sticky top-0 z-50 shadow-xl border-b border-courage-blue/20"
     >
       <div
-        class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6"
+        class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 items-center gap-6"
       >
-        <div class="flex items-center gap-3 md:gap-4">
+        <div class="flex items-center gap-3 md:gap-4 justify-center md:justify-start">
           <img
             src="./assets/images/courage.png"
             alt="NC Courage logo"
@@ -48,11 +48,9 @@
             </p>
           </div>
         </div>
-        <div
-          class="w-full md:w-auto flex flex-col items-center md:items-end gap-3"
-        >
+        <div class="flex justify-center">
           <div
-            class="w-full text-center md:text-left text-xs leading-relaxed rounded-lg px-5 py-3 bg-white/5 md:min-w-[360px]"
+            class="text-left text-xs leading-relaxed rounded-lg px-5 py-3 bg-white/5 min-w-[280px]"
           >
             <p
               class="text-courage-blue uppercase tracking-wider font-black text-[10px]"
@@ -68,6 +66,13 @@
               >
             </p>
           </div>
+        </div>
+        <div class="flex justify-center md:justify-end">
+          <a
+            href="./player-sheets.html"
+            class="px-6 py-3 border-2 border-courage-blue text-white font-bold uppercase tracking-widest text-xs rounded-full hover:bg-courage-blue transition"
+            >Player Sheet</a
+          >
         </div>
       </div>
     </nav>
