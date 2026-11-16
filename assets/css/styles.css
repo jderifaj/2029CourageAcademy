@@ -78,6 +78,17 @@ body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; b
     height: 24px;
 }
 
+/* Desktop: size the photo from viewport height so photo, position,
+   highlight film and contact info all fit above the fold. */
+@media (min-width: 1024px) {
+    .photo-frame {
+        height: clamp(220px, calc(100vh - 440px), 460px);
+        width: auto;
+        max-width: 100%;
+        margin-inline: auto;
+    }
+}
+
 @media (max-width: 1025px) {
     #backToTop {
         bottom: max(20px, env(safe-area-inset-bottom));
