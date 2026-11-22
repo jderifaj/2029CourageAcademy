@@ -1,0 +1,176 @@
+---
+permalink: /index.html
+---
+{#- A stat box value: blank shows TBD, "N/A" shows N/A, anything else shows the value. -#}
+{%- macro stat(value, size="text-2xl", extra="") -%}
+{%- if not value %}<span class="text-2xl font-black text-slate-300 italic">TBD</span>
+{%- elif value | isNA %}<span class="text-2xl font-black text-slate-300">N/A</span>
+{%- else %}<span class="{{ size }} font-black text-courage-navy{{ extra }}">{{ value }}</span>{% endif -%}
+{%- endmacro -%}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ site.title }} | {{ site.subtitle }} Roster</title>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+  </head>
+  <body class="antialiased">
+    <div id="backToTop" aria-label="Scroll to top">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7"></path>
+      </svg>
+    </div>
+    <nav class="bg-courage-navy text-white p-6 sticky top-0 z-50 shadow-xl border-b border-courage-blue/20">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 items-center gap-6">
+        <div class="flex items-center gap-3 md:gap-4 justify-center md:justify-start">
+          <img src="/assets/images/courage.png" alt="NC Courage logo" class="w-14 md:w-24 object-contain shrink-0" />
+          <div>
+            <h1 class="font-black italic uppercase tracking-tighter text-2xl leading-none">{{ site.title }}</h1>
+            <p class="text-[10px] uppercase tracking-widest text-courage-blue font-bold mt-1">{{ site.subtitle }}</p>
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <div class="text-left text-xs leading-relaxed rounded-lg px-5 py-3 bg-white/5 min-w-[280px]">
+            <p class="text-courage-blue uppercase tracking-wider font-black text-[10px]">Head Coach</p>
+            <p class="font-bold text-white">{{ site.coachName }}</p>
+            {%- if site.coachEmail %}
+            <p><a href="mailto:{{ site.coachEmail }}" class="text-courage-blue hover:text-white transition">{{ site.coachEmail }}</a></p>
+            {%- endif %}
+            {%- if site.coachPhone %}
+            <p><a href="{{ site.coachPhone | telHref }}" class="text-courage-blue hover:text-white transition">{{ site.coachPhone }}</a></p>
+            {%- endif %}
+          </div>
+        </div>
+        <div class="flex justify-center md:justify-end">
+          <a href="/player-sheets.html" class="px-6 py-3 border-2 border-courage-blue text-white font-bold uppercase tracking-widest text-xs rounded-full hover:bg-courage-blue transition">Player Sheet</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="bg-slate-50 border-b border-slate-200 nav-container overflow-hidden">
+      <svg id="drawing-path" width="1080" height="180" viewBox="0 0 1080 180" fill="none">
+        <path id="outline" d="M660,55 L1050,55 L1050,135 L30,135 L30,55 L420,55" stroke="#E31837" stroke-width="2" stroke-linecap="round" />
+      </svg>
+
+      <div class="label-overlay">
+        <span class="find-player-text">Find Player</span>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 relative z-10">
+        <button id="playerMenuToggle" class="player-menu-toggle" type="button" aria-expanded="false" aria-controls="playerJumpGroups">
+          <span>Player Menu</span>
+          <span class="menu-icon" aria-hidden="true"></span>
+        </button>
+
+        <div id="playerJumpGroups" class="jump-groups flex flex-wrap items-center justify-center gap-x-6 gap-y-4 md:gap-12 mt-3 mb-4 md:mt-6 md:mb-6">
+          {%- for group in players | byJersey | byClassYear %}
+          <div class="year-group">
+            <span class="group-year-label">{{ group.year }}</span>
+            <div class="flex flex-wrap gap-3 justify-center">
+              {%- for p in group.players %}
+              <a href="#player-{{ p.jersey }}" class="jump-link bg-courage-navy text-white rounded" data-name="{{ p.firstName }} {{ p.lastName }}">{{ p.jersey }}</a>
+              {%- endfor %}
+            </div>
+          </div>
+          {%- endfor %}
+        </div>
+      </div>
+    </div>
+
+    <main>
+      {%- for p in players | byLastName %}
+      {%- set fullName = p.firstName + " " + p.lastName %}
+      <section id="player-{{ p.jersey }}" class="player-section max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <div class="lg:col-span-5">
+            <div class="lg:sticky lg:top-32">
+              <div class="relative aspect-[3/4] overflow-hidden rounded-2xl bg-slate-100 shadow-2xl border-4 border-slate-50">
+                {%- if p.photo %}
+                <img src="{{ p.photo }}" alt="{{ fullName }}" class="w-full h-full object-cover" loading="lazy" />
+                {%- endif %}
+                {%- if p.committed %}
+                <div class="absolute top-4 right-4 bg-courage-navy text-courage-blue px-4 py-2 font-black italic uppercase text-sm rounded-lg shadow-lg">Committed</div>
+                {%- endif %}
+              </div>
+              <div class="mt-8 bg-courage-navy text-white rounded-2xl p-6 flex items-center justify-between shadow-xl">
+                <div class="flex-1 pr-4">
+                  <span class="block text-[10px] uppercase tracking-[0.3em] text-courage-blue font-black mb-1">Position</span>
+                  <p class="font-black italic uppercase tracking-tighter leading-tight {{ p.position | positionSize }}">{{ p.position or "TBD" }}</p>
+                </div>
+                <div class="text-right border-l border-slate-700 pl-6 shrink-0">
+                  <span class="block text-[10px] uppercase tracking-[0.3em] text-courage-blue font-black mb-1">Jersey</span>
+                  <p class="text-5xl font-black italic">#{{ p.jersey }}</p>
+                </div>
+              </div>
+              <div class="mt-6 flex flex-col gap-3">
+                {%- if p.highlightUrl %}
+                <a href="{{ p.highlightUrl }}" target="_blank" rel="noopener noreferrer" class="btn-highlight flex items-center justify-center w-full px-6 py-4 text-white font-black uppercase tracking-widest rounded-xl shadow-lg">Watch Highlight Film</a>
+                {%- else %}
+                <div class="flex items-center justify-center w-full px-6 py-4 text-slate-400 font-black uppercase tracking-widest rounded-xl border-2 border-dashed border-slate-200">Highlight Film Coming Soon</div>
+                {%- endif %}
+              </div>
+              <div class="mt-6 p-6 bg-slate-50 rounded-2xl border border-slate-200 text-sm text-slate-600 space-y-2">
+                <p><span class="font-bold text-slate-900">Email:</span> {% if p.email %}{{ p.email }}{% else %}<span class="text-slate-400 italic">TBD</span>{% endif %}</p>
+                {%- if p.phone %}<p><span class="font-bold text-slate-900">Player Phone:</span> {{ p.phone }}</p>{% endif %}
+                {%- if p.parents %}<p><span class="font-bold text-slate-900">Parents:</span> {{ p.parents }}</p>{% endif %}
+                {%- if p.parentPhone %}<p><span class="font-bold text-slate-900">Phone:</span> {{ p.parentPhone }}</p>{% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="lg:col-span-7 pt-4">
+            <header class="mb-10">
+              <h2 class="text-sm font-black uppercase tracking-[0.4em] text-courage-red mb-2">{{ p.highSchool or "High School TBD" }}</h2>
+              <h1 class="text-7xl font-black text-courage-navy italic tracking-tighter uppercase leading-[0.9]">{{ p.firstName }} <span class="text-courage-blue">{{ p.lastName }}</span></h1>
+              <p class="mt-4 text-xl font-bold text-slate-500 uppercase">Class of {{ p.classYear }}</p>
+              {%- if p.committedTo %}
+              <p class="mt-2 text-sm font-black uppercase tracking-widest text-courage-navy">Committed to {{ p.committedTo }}</p>
+              {%- endif %}
+            </header>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-10 text-center">
+              <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                <span class="block text-[10px] text-slate-400 font-black mb-1">GPA</span>{{ stat(p.gpa) }}
+              </div>
+              <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                <span class="block text-[10px] text-slate-400 font-black mb-1">HEIGHT</span>{{ stat(p.height) }}
+              </div>
+              <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                {%- set testLabel = p.testLabel or "ACT/SAT" %}
+                <span class="block text-[10px] text-slate-400 font-black mb-1 uppercase{% if testLabel | length > 10 %} text-[8px]{% endif %}">{{ testLabel }}</span>{{ stat(p.testScore, "text-sm" if (p.testScore | length > 6) else "text-2xl") }}
+              </div>
+              <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                <span class="block text-[10px] text-slate-400 font-black mb-1">MAJOR</span>{{ stat(p.major, p.major | majorSize, " uppercase leading-none") }}
+              </div>
+              <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                <span class="block text-[10px] text-slate-400 font-black mb-1">FOOT</span>{{ stat(p.foot) }}
+              </div>
+            </div>
+            <div class="space-y-8">
+              <section>
+                <h3 class="text-courage-navy font-black uppercase tracking-widest text-xs mb-4 pb-1 border-b-2 border-courage-red inline-block">Honors &amp; Achievements</h3>
+                {%- if p.honors and p.honors.length %}
+                <ul class="space-y-2 text-slate-700">
+                  {%- for h in p.honors %}
+                  <li class="check-bullet">{{ h }}</li>
+                  {%- endfor %}
+                </ul>
+                {%- else %}
+                <p class="text-sm text-slate-400 italic">Achievements coming soon.</p>
+                {%- endif %}
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+      {%- endfor %}
+    </main>
+
+    <footer class="bg-courage-navy text-white p-12 text-center border-t border-slate-800">
+      <p class="text-slate-400 text-sm italic">{{ site.footerText }}</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+  </body>
+</html>

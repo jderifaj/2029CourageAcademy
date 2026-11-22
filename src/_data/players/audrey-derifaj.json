@@ -1,0 +1,30 @@
+{
+  "firstName": "Audrey",
+  "lastName": "Derifaj",
+  "position": "Wingback",
+  "jersey": 60,
+  "photo": "/assets/images/00052.JPG",
+  "highSchool": "Cary High School",
+  "classYear": 2029,
+  "gpa": "4.4",
+  "height": "5' 2\"",
+  "testLabel": "ACT/SAT",
+  "testScore": "N/A",
+  "major": "Biology",
+  "foot": "Right",
+  "honors": [
+    "NC Courage Super Cup USL-U20 Academy Team Member",
+    "Cary HS Cross Country All-time 3K & 5K Record Holder",
+    "2025 Top 10 Finisher - NC 7A Cross Country State Championships",
+    "Appalachian Service Project Volunteer & Team Member",
+    "Alpha Beta Club",
+    "Cary Elementary Weekly Classroom Support Volunteer"
+  ],
+  "email": "afderifaj@gmail.com",
+  "phone": "",
+  "parents": "Jason & Caroline (919) 452-5095",
+  "parentPhone": "",
+  "highlightUrl": "https://www.youtube.com/@AudreyDerifajNCCourageAcademy",
+  "committed": false,
+  "committedTo": ""
+}

@@ -1,0 +1,101 @@
+# Sveltia CMS configuration: https://sveltiacms.app/en/docs
+# Editors sign in at /admin with a GitHub account that has Write access to the repo.
+backend:
+  name: github
+  repo: jderifaj/2029CourageAcademy
+  branch: team-site
+  commit_messages:
+    create: "Add player {{slug}}"
+    update: "Update {{slug}}"
+    delete: "Remove player {{slug}}"
+    uploadMedia: "Upload {{path}}"
+    deleteMedia: "Delete {{path}}"
+
+logo_url: /assets/images/courage.png
+
+media_folder: src/assets/images
+public_folder: /assets/images
+
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 1600
+          height: 1600
+
+collections:
+  - name: players
+    label: Players
+    label_singular: Player
+    description: One entry per player. Changes go live on the site a minute or two after you save.
+    folder: src/_data/players
+    format: json
+    create: true
+    delete: true
+    slug: "{{firstName}}-{{lastName}}"
+    identifier_field: lastName
+    summary: "#{{jersey}} {{firstName}} {{lastName}}"
+    sortable_fields:
+      fields: [jersey, lastName, classYear]
+      default:
+        field: lastName
+        direction: ascending
+    fields:
+      - { name: firstName, label: First Name, widget: string }
+      - { name: lastName, label: Last Name, widget: string }
+      - { name: position, label: Position, widget: string, required: false, hint: "e.g. Winger / Striker" }
+      - { name: jersey, label: Jersey, widget: number, value_type: int, min: 0, max: 99 }
+      - name: photo
+        label: Photo
+        widget: image
+        required: false
+        hint: Portrait (3:4) photos look best. Large photos are resized automatically.
+      - { name: highSchool, label: High School, widget: string, required: false, hint: Leave blank to show "High School TBD". }
+      - { name: classYear, label: Class, widget: number, value_type: int, min: 2025, max: 2040, default: 2029, hint: "Graduation year. Players are grouped by this in the menu." }
+      - { name: gpa, label: GPA, widget: string, required: false, hint: "Leave blank to show TBD, or type N/A." }
+      - { name: height, label: Height, widget: string, required: false, hint: "e.g. 5' 6\". Leave blank to show TBD." }
+      - name: testLabel
+        label: ACT/SAT Box Label
+        widget: select
+        options: ["ACT/SAT", "Clearing House", "NCAA ID#"]
+        default: ACT/SAT
+        hint: What the third stat box is titled.
+      - { name: testScore, label: ACT/SAT (or ID number), widget: string, required: false, hint: "Leave blank to show TBD, or type N/A." }
+      - { name: major, label: Major, widget: string, required: false, hint: "e.g. Biology or Undecided. Leave blank to show TBD." }
+      - name: foot
+        label: Foot
+        widget: select
+        required: false
+        options: [Right, Left, Both]
+        hint: Leave empty to show TBD.
+      - name: honors
+        label: Honors & Achievements
+        label_singular: Honor
+        widget: list
+        required: false
+        field: { name: honor, label: Honor, widget: string }
+      - { name: email, label: Email, widget: string, required: false }
+      - { name: phone, label: Player Phone, widget: string, required: false }
+      - { name: parents, label: Parents, widget: string, required: false, hint: "e.g. Liz Agro, James Agro" }
+      - { name: parentPhone, label: Parent Phone, widget: string, required: false, hint: "e.g. Pam (919) 555-1234, Robbie (919) 555-5678" }
+      - { name: highlightUrl, label: Highlight Film Link, widget: string, required: false, hint: "YouTube, Google Drive, Instagram, etc. Leave blank to show Highlight Film Coming Soon." }
+      - { name: committed, label: Committed, widget: boolean, default: false, hint: Shows a COMMITTED badge on the photo and the printable sheet. }
+      - { name: committedTo, label: Committed To, widget: string, required: false, hint: "School name, e.g. UNC. Shows \"Committed to UNC\" under the class year." }
+
+  - name: settings
+    label: Site Settings
+    files:
+      - name: site
+        label: Header, Coach & Footer
+        file: src/_data/site.json
+        format: json
+        fields:
+          - { name: title, label: Team Name, widget: string }
+          - { name: subtitle, label: Subtitle, widget: string }
+          - { name: coachName, label: Head Coach Name, widget: string }
+          - { name: coachEmail, label: Coach Email, widget: string, required: false }
+          - { name: coachPhone, label: Coach Phone, widget: string, required: false }
+          - { name: footerText, label: Footer Text, widget: string, required: false }

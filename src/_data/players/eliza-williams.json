@@ -1,0 +1,23 @@
+{
+  "firstName": "Eliza",
+  "lastName": "Williams",
+  "position": "Midfield",
+  "jersey": 65,
+  "photo": "/assets/images/00065.JPG",
+  "highSchool": "",
+  "classYear": 2029,
+  "gpa": "",
+  "height": "",
+  "testLabel": "ACT/SAT",
+  "testScore": "",
+  "major": "",
+  "foot": "",
+  "honors": [],
+  "email": "",
+  "phone": "",
+  "parents": "Matt Williams, Hannah Williams",
+  "parentPhone": "",
+  "highlightUrl": "",
+  "committed": false,
+  "committedTo": ""
+}

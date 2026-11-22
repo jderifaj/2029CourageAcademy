@@ -1,0 +1,212 @@
+---
+permalink: /player-sheets.html
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ site.title }} | Printable Roster</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+
+      :root {
+        --courage-navy: #002D56;
+        --courage-red: #E31837;
+        --courage-blue: #00A3E0;
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        background: #f1f5f9;
+        color: var(--courage-navy);
+      }
+
+      .page {
+        width: 8.5in;
+        min-height: 11in;
+        margin: 0 auto;
+        background: #fff;
+        padding: 0.45in 0.5in;
+      }
+
+      .no-print {
+        max-width: 8.5in;
+        margin: 0.5in auto 0;
+        display: flex;
+        justify-content: center;
+      }
+
+      .no-print button {
+        font: inherit;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        font-size: 12px;
+        border-radius: 999px;
+        background: var(--courage-navy);
+        color: #fff;
+        cursor: pointer;
+        border: none;
+        padding: 0.6rem 1.6rem;
+      }
+
+      .no-print button:hover { background: var(--courage-red); }
+
+      header.sheet-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        border-bottom: 3px solid var(--courage-navy);
+        padding-bottom: 10px;
+        margin-bottom: 14px;
+      }
+
+      header.sheet-header img {
+        width: 46px;
+        height: 46px;
+        object-fit: contain;
+        flex-shrink: 0;
+      }
+
+      header.sheet-header h1 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 900;
+        font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
+        line-height: 1.1;
+      }
+
+      header.sheet-header p {
+        margin: 2px 0 0;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--courage-blue);
+      }
+
+      .roster-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 1fr;
+        gap: 10px;
+      }
+
+      .player-card {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px dashed #b9c2cf;
+        border-radius: 8px;
+        padding: 10px;
+        overflow: hidden;
+        break-inside: avoid;
+      }
+
+      .player-card.committed::after {
+        content: "COMMITTED";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        transform-origin: 0% 100%;
+        transform: rotate(352deg);
+        font-size: 36px;
+        font-weight: 900;
+        font-style: italic;
+        letter-spacing: 0.03em;
+        line-height: 1;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(227, 24, 55, 0.8);
+        white-space: nowrap;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .player-photo {
+        position: relative;
+        z-index: 1;
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--courage-navy);
+        background: #e2e8f0;
+      }
+
+      .player-info {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+
+      .player-number {
+        font-weight: 900;
+        font-style: italic;
+        font-size: 15px;
+        color: var(--courage-blue);
+        line-height: 1.1;
+      }
+
+      .player-name {
+        font-weight: 700;
+        font-size: 12.5px;
+        text-transform: uppercase;
+        line-height: 1.15;
+        overflow-wrap: break-word;
+      }
+
+      @media print {
+        body { background: #fff; }
+        .no-print { display: none; }
+        .page {
+          width: auto;
+          min-height: 0;
+          margin: 0;
+          padding: 0;
+        }
+        @page {
+          size: letter portrait;
+          margin: 0.45in 0.5in;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="no-print">
+      <button type="button" onclick="window.print()">Print</button>
+    </div>
+
+    <div class="page">
+      <header class="sheet-header">
+        <img src="/assets/images/courage.png" alt="NC Courage logo" />
+        <div>
+          <h1>{{ site.title }}</h1>
+          <p>{{ site.subtitle }} &middot; Printable Roster</p>
+        </div>
+      </header>
+
+      <div class="roster-grid">
+        {%- for p in players | byJersey %}
+        <div class="player-card{% if p.committed %} committed{% endif %}">
+          <img class="player-photo" src="{{ p.photo }}" alt="{{ p.firstName }} {{ p.lastName }}" />
+          <div class="player-info">
+            <span class="player-number">#{{ p.jersey }}</span>
+            <span class="player-name">{{ p.firstName }} {{ p.lastName }}</span>
+          </div>
+        </div>
+        {%- endfor %}
+      </div>
+    </div>
+  </body>
+</html>

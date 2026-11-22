@@ -1,0 +1,26 @@
+{
+  "firstName": "Sadie",
+  "lastName": "Sadler",
+  "position": "Striker / Midfield",
+  "jersey": 59,
+  "photo": "/assets/images/00061.JPG",
+  "highSchool": "Crossroads Flex HS",
+  "classYear": 2029,
+  "gpa": "N/A",
+  "height": "5' 5\"",
+  "testLabel": "ACT/SAT",
+  "testScore": "N/A",
+  "major": "Undecided",
+  "foot": "Right",
+  "honors": [
+    "Christmas Warehouse & Salvation Army Volunteer",
+    "Feed the Children & Club Unified Volunteer"
+  ],
+  "email": "sadiesadlersoccer51@gmail.com",
+  "phone": "",
+  "parents": "Kelly Sadler, Sean Sadler",
+  "parentPhone": "",
+  "highlightUrl": "",
+  "committed": false,
+  "committedTo": ""
+}

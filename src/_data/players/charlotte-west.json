@@ -1,0 +1,23 @@
+{
+  "firstName": "Charlotte",
+  "lastName": "West",
+  "position": "Wingback",
+  "jersey": 55,
+  "photo": "/assets/images/00064.JPG",
+  "highSchool": "Crossroads Flex HS",
+  "classYear": 2029,
+  "gpa": "",
+  "height": "",
+  "testLabel": "ACT/SAT",
+  "testScore": "",
+  "major": "",
+  "foot": "",
+  "honors": [],
+  "email": "",
+  "phone": "",
+  "parents": "Joey West, Amanda West",
+  "parentPhone": "",
+  "highlightUrl": "",
+  "committed": false,
+  "committedTo": ""
+}
