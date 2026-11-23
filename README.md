@@ -8,7 +8,7 @@ don't merge the two.
 
 ## Editing content (no coding needed)
 
-1. Go to `<team site URL>/admin/` and click **Sign In with GitHub**.
+1. Go to `https://courage2029.netlify.app/admin/` and click **Sign In with GitHub**.
 2. Open **Players**, pick a player (or click **New Player**), make changes, and click **Save**.
 3. The site rebuilds automatically and goes live in a minute or two.
 

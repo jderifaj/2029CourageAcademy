@@ -11,6 +11,8 @@ backend:
     uploadMedia: "Upload {{path}}"
     deleteMedia: "Delete {{path}}"
 
+site_url: https://courage2029.netlify.app
+display_url: https://courage2029.netlify.app
 logo_url: /assets/images/courage.png
 
 media_folder: src/assets/images
